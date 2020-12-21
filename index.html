@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div x-data="game()" x-init="shuffle()" class="flex min-h-screen justify-center items-center bg-gradient-to-br from-purple-600 to-purple-200">
+        <div class="grid gap-6 grid-cols-4">
+            <template x-for="card in shuffleCards">
+                <div @click="flipCard(card)" x-show="!card.cleared"
+                        :style="`background-image: ${card.flipped ? image : 'gray'};background-size: cover ;background-position: center;`" 
+                        class="object-cover h-48 w-32 bg-blue-500 rounded-3xl"></div>
+            </template>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script>
+        let image = `url('https://cnet1.cbsistatic.com/img/7u7ai0N0dEQBlf4g5EYxzf-ZeJ0=/1200x630/2020/03/25/8f81e7d4-92dc-4201-927e-be9a8893dbcb/credit-card-chase-freedom-unlimited.png')`;
+        function game() {
+            return {
+                cards: [
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                ],
+                shuffleCards: [],
+
+                shuffle() {
+                    this.shuffleCards = this.cards.sort(() => Math.random() - 0.5);
+                },
+
+                get flippedCards() {
+                    return this.shuffleCards.filter(card => card.flipped);
+                },
+
+                thereIsAMatch() {
+                    return this.flippedCards[0]['image'] === this.flippedCards[1]['image']
+                },
+
+                flipCard(card) {
+                    console.log(this.shuffleCards);
+                    if (this.flippedCards.length > 1) {
+                        return;
+                    }
+
+                    card.flipped = !card.flipped;
+                    if (this.flippedCards.length === 2) {
+                        setTimeout(() => {
+                            if (this.thereIsAMatch()) {
+                                this.flippedCards.forEach(card => card.cleared = true)    
+                            }
+                            this.flippedCards.forEach(card => card.flipped = false)
+                                
+                        }, 800);
+                    }
+                } 
+            } 
+        }
+    </script>
+</body>
+</html>
