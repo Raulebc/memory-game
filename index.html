@@ -8,11 +8,14 @@
 </head>
 <body>
     <div x-data="game()" x-init="shuffle()" class="flex min-h-screen justify-center items-center bg-gradient-to-br from-purple-600 to-purple-200">
-        <div class="grid gap-6 grid-cols-4">
+        <div class="grid gap-10 grid-cols-4">
             <template x-for="card in shuffleCards">
-                <div @click="flipCard(card)" x-show="!card.cleared"
-                        :style="`background-image: ${card.flipped ? image : 'gray'};background-size: cover ;background-position: center;`" 
-                        class="object-cover h-48 w-32 bg-blue-500 rounded-3xl"></div>
+                <div>
+                        <button @click="flipCard(card)" 
+                                x-show="!card.cleared"
+                                :style="`background-image: ${card.flipped ? card.image : 'gray'};`" 
+                        class="object-cover h-48 w-48 bg-blue-500 rounded-3xl bg-cover bg-center"></button>
+                </div>
             </template>
         </div>
     </div>
@@ -22,14 +25,14 @@
         function game() {
             return {
                 cards: [
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
-                    { image: './img/catto.jpeg', flipped: true, cleared: false},
+                    { name: 'catto', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/catto.jpeg')`, flipped: false, cleared: false},
+                    { name: 'catto', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/catto.jpeg')`, flipped: false, cleared: false},
+                    { name: 'michael', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/michael.jpeg')`, flipped: false, cleared: false},
+                    { name: 'michael', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/michael.jpeg')`, flipped: false, cleared: false},
+                    { name: 'bodoque', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/bodoque.jpeg')`, flipped: false, cleared: false},
+                    { name: 'bodoque', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/bodoque.jpeg')`, flipped: false, cleared: false},
+                    { name: 'doggo', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/doggo.jpeg')`, flipped: false, cleared: false},
+                    { name: 'doggo', image: `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/doggo.jpeg')`, flipped: false, cleared: false},
                 ],
                 shuffleCards: [],
 
@@ -42,7 +45,7 @@
                 },
 
                 thereIsAMatch() {
-                    return this.flippedCards[0]['image'] === this.flippedCards[1]['image']
+                    return this.flippedCards[0]['name'] === this.flippedCards[1]['name']
                 },
 
                 flipCard(card) {
