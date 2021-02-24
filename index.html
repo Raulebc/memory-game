@@ -7,13 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <div x-data="game()" x-init="shuffle()" class="flex min-h-screen justify-center items-center bg-gradient-to-br from-purple-600 to-purple-200">
+    <div x-data="game()" x-init="shuffle()" 
+        class="flex min-h-screen justify-center items-center bg-gradient-to-br from-purple-600 to-purple-200">
         <div class="grid gap-10 grid-cols-4">
             <template x-for="card in shuffleCards">
                 <div>
                         <button @click="flipCard(card)" 
                                 x-show="!card.cleared"
-                                :style="`background-image: ${card.flipped ? card.image : 'gray'};`" 
+                                :style="`background-image: ${card.flipped ? card.image : default_image};`" 
                         class="object-cover h-48 w-48 bg-blue-500 rounded-3xl bg-cover bg-center"></button>
                 </div>
             </template>
@@ -21,7 +22,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
     <script>
-        let image = `url('https://cnet1.cbsistatic.com/img/7u7ai0N0dEQBlf4g5EYxzf-ZeJ0=/1200x630/2020/03/25/8f81e7d4-92dc-4201-927e-be9a8893dbcb/credit-card-chase-freedom-unlimited.png')`;
+        let default_image = `url('https://raw.githubusercontent.com/Raulebc/memory-game/master/img/default.png')`;
         function game() {
             return {
                 cards: [
