@@ -12,6 +12,8 @@ Memory Game - Laracasts!
 
 Check it out, super simple!
 
-> 1.- Download the code (or copy the index.html)
-> 2.- Open the index.html on a web browser
-> 3.- Smile :)
+```shell
+1.- Download the code (or copy the index.html)
+2.- Open the index.html on a web browser
+3.- Smile :)
+```
